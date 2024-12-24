@@ -23,8 +23,9 @@ class JarViewModel : ViewModel() {
 
     fun fetchData() {
         viewModelScope.launch {
-          val response =  repository.fetchResults()
-             _listStringData.value = response
+            repository.fetchResults().collect { response ->
+                _listStringData.value = response
+            }
         }
     }
 }
