@@ -6,8 +6,11 @@ import com.myjar.jarassignment.createRetrofit
 import com.myjar.jarassignment.data.model.ComputerItem
 import com.myjar.jarassignment.data.repository.JarRepository
 import com.myjar.jarassignment.data.repository.JarRepositoryImpl
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class JarViewModel : ViewModel() {
@@ -20,7 +23,8 @@ class JarViewModel : ViewModel() {
 
     fun fetchData() {
         viewModelScope.launch {
-            repository.fetchResults()
+          val response =  repository.fetchResults()
+             _listStringData.value = response
         }
     }
 }
